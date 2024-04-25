@@ -1,0 +1,8 @@
+numpy
+pandas
+ipykernel
+tqdm
+binance-connector
+torch
+matplotlib
+deepmerge

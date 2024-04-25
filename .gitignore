@@ -1,1 +1,3 @@
 experiment_manager/infra/volumes
+.venv
+example/model/tmp
