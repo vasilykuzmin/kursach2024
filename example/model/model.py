@@ -74,7 +74,6 @@ class Model:
         return self.description
 
     def dumpDescription(self, path):
-        json_description = json.dumps(self.description)
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w') as f:
-            f.write(json_description)
+            json.dump(self.description, f)

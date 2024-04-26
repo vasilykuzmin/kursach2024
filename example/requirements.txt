@@ -8,3 +8,5 @@ matplotlib
 deepmerge
 nbconvert
 gitpython
+pymongo
+python-dotenv
