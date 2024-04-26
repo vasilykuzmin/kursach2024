@@ -19,23 +19,21 @@ def getRepo() -> git.Repo:
 
 def commit(file_to_execute) -> str:
     '''Commits all changes to an experiment's commit.'''
-    experiment_name = f'experiment-{token_hex(16)}'
-
     repo = getRepo()
     original_branch = repo.active_branch
 
-    repo.git.stash(experiment_name)
+    repo.git.stash('save')
 
-    experiment_branch = repo.create_head(experiment_name)
+    experiment_branch = repo.create_head(f'experiment_{token_hex(16)}')
     repo.git.checkout(experiment_branch)
 
-    repo.git.stash.apply(experiment_name)
+    repo.git.stash('apply')
     repo.git.add(update=True)
     repo.index.commit(str(file_to_execute))
     repo.git.push('gitlab', experiment_branch)
 
     repo.git.checkout(original_branch)
-    repo.git.stash.pop(experiment_name)
+    repo.git.stash('pop')
 
 if __name__ == '__main__':
     commit(sys.argv[1])
