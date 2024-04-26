@@ -6,3 +6,4 @@ binance-connector
 torch
 matplotlib
 deepmerge
+nbconvert

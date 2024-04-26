@@ -1,3 +1,4 @@
 experiment_manager/infra/volumes
-.venv
+*.venv
 example/model/tmp
+*__pycache__
