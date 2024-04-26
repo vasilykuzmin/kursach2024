@@ -1,0 +1,13 @@
+{
+    "actionButtons": {
+        // Ставишь расширение seunlanlege.action-buttons. Снизу слева нажимаешь на значок "Refresh the action buttons". Радуешься.
+        "commands": [
+            {
+                "name": "Commit",
+                "color": "white",
+                "singleInstance": true,
+                "command": "source ${workspaceFolder}/.venv/bin/activate && ${workspaceFolder}/experiment_manager/src/commit_experiment.py ${relativeFile}",
+            }
+        ]
+    }
+}
