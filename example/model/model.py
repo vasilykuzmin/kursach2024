@@ -6,17 +6,27 @@ from dataset import dataset_cache
 from splitted_data import SplittedData
 from tqdm import tqdm
 import torch
-from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 from IPython.display import clear_output
 from deepmerge import always_merger
-import tempfile
+import json
+import os
+import datetime
+import time
+import git
+
 
 class Model:
     def __init__(self, net):
         self.net = net
         self.description = {}
-    
+
+        repo = git.Repo(search_parent_directories=True)
+        sha = repo.head.object.hexsha
+        self.addDescription({'git_hash': sha})
+        self.addDescription({'datetime': str(datetime.datetime.now())})
+        self.addDescription({'unix_time': int(time.time())})
+
     def addDescription(self, description):
         always_merger.merge(self.description, description)
 
@@ -55,10 +65,16 @@ class Model:
         except KeyboardInterrupt:
             print('Keyboard interrupt.')
 
-        self.addDescription({'model': {'metrics': {'Loss': losses}}})
+        self.addDescription({'model': {'metrics': {'loss': losses}}})
         torch.set_printoptions(profile="full")
         self.addDescription({'model': {'weights': str(self.net.state_dict())}})
         self.addDescription({'min_loss': min(losses)})
 
     def getDescription(self):
         return self.description
+
+    def dumpDescription(self, path):
+        json_description = json.dumps(self.description)
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, 'w') as f:
+            f.write(json_description)

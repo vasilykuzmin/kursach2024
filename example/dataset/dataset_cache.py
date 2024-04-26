@@ -19,7 +19,7 @@ def processDescription(description: dict) -> None:
     for field in default_description:
         if not field in description:
             description[field] = None
-    description['DataLoaderHash'] = md5(f'{os.path.dirname(__file__)}/data_loader.py')
+    description['dataLoaderHash'] = md5(f'{os.path.dirname(__file__)}/data_loader.py')
     description['datasetCacheHash'] = md5(f'{os.path.dirname(__file__)}/dataset_cache.py')
 
 def download(description: dict) -> None:
