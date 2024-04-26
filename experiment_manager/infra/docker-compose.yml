@@ -30,6 +30,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
         - gitlab-network
+        - mongo-network
 
   mongodb:
     image: mongo
@@ -41,6 +42,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
     volumes:
       - ${VOLUME_PATH}/mongo/data:/data/db
+    networks:
+        - mongo-network
 
   mongo-express:
     image: mongo-express
@@ -56,7 +59,11 @@ services:
       - ME_CONFIG_MONGODB_SERVER=mongodb
       - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
       - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
+    networks:
+        - mongo-network
 
 networks:
   gitlab-network:
     name: gitlab-network
+  mongo-network:
+    name: mongo-network

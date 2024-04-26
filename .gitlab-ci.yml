@@ -3,3 +3,4 @@ build-job:
   script:
     - pip3 install -r example/requirements.txt
     - experiment_manager/src/run_ipynb.py ./example/model/simpleModel.ipynb
+    - experiment_manager/src/insert_experiment_mongo.py tmp/run_result.json
