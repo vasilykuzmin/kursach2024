@@ -2,4 +2,4 @@ build-job:
   stage: build
   script:
     - pip3 install -r example/requirements.txt
-    - ./experiment_manager/src/run_ipynb ./example/model/simpleModel.ipynb
+    - experiment_manager/src/run_ipynb.py ./example/model/simpleModel.ipynb
